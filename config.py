@@ -14,12 +14,13 @@ class Config:
 
     MAIL_SUPPRESS_SEND = False
 
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'super_2535ijfijdf_secret_O0-234_key')
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SOCIAL_BLOG_MAIL_SUBJECT_PREFIX = 'SocialBlog'
     SOCIAL_BLOG_MAIL_SENDER = 'Social blog Admin b000ks.in.st0re@gmail.com'
     SOCIAL_BLOG_ADMIN = os.environ.get('SOCIAL_BLOG_ADMIN')
+    SOCIAL_BLOG_PER_PAGE = os.environ.get('SOCIAL_BLOG_PER_PAGE', 7)
 
     @staticmethod
     def init_app(app):

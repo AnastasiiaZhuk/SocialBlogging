@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
 
-{% block title %}Socail Blog{% endblock %}
+{% block title %}Flasky{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
@@ -9,29 +10,18 @@
 </div>
 <div>
     {% if current_user.can(Permission.WRITE) %}
-        {{ wtf.quick_form(form) }}
+    {{ wtf.quick_form(form) }}
     {% endif %}
 </div>
+{% include '_posts.html' %}
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.index') }}
 </div>
-    <ul class="posts">
-        {% for post in posts %}
-            <li class="post">
-                <div class="profile-thumbnail">
-                    <a href="{{ url_for('auth.user', username=post.author.username) }}">
-                    <img class="img-rounded profile-thumbnail"
-                    src="{{ post.author.gravatar(size=40) }}">
-                    </a>
-                </div>
-                <div class="post-date">{{ post.time }}</div>
-                <div class="post-author">
-                    <a href="{{ url_for('auth.user', username=post.author.username) }}">
-                    {{ post.author.username }}
-                    </a>
-                </div>
-                <div class="post-body">{{ post.body }}</div>
-            </li>
-        {% endfor %}
-    </ul>
-</div>
+{% endif %}
+{% endblock %}
 
+{% block scripts %}
+{{ super() }}
+{{ pagedown.include_pagedown() }}
 {% endblock %}
